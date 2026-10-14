@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f6f2" />
+  <title>Timebox — Watch Later, actually later</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">t</span><span>timebox<span class="brand-dot">.</span></span></a>
+      <div class="side-label">YOUR SPACE</div>
+      <button class="nav-item active" data-view="saved"><span class="nav-icon">▤</span> Watch Later <span class="nav-count" id="savedCount">20</span></button>
+      <button class="nav-item" data-view="later"><span class="nav-icon">◷</span> Maybe later <span class="nav-count" id="laterCount">0</span></button>
+      <div class="sidebar-bottom">
+        <div class="tip-card"><div class="tip-spark">✳</div><strong>Small gaps count.</strong><p>Turn a spare 10 minutes into something you actually wanted to watch.</p></div>
+        <div class="profile"><div class="avatar">S</div><div><strong>Your space</strong><small>Personal queue</small></div><span class="profile-dots">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumb">Your library <span>/</span> <b id="breadcrumbLabel">Watch Later</b></div><div class="top-right"><span class="live-dot"></span><span>Made for your free time</span><div class="mini-avatar">S</div></div></header>
+      <section class="hero">
+        <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR TIME, YOUR TERMS</div><h1>Make time for<br><em>what you saved.</em></h1><p>Your Watch Later list is full of good intentions. Tell us how much time you have — we’ll find a watchable little plan.</p></div>
+        <div class="hero-art" aria-hidden="true"><div class="art-circle circle-one"></div><div class="art-circle circle-two"></div><div class="art-card"><div class="art-play">▶</div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>YOUR NEXT BREAK</span></div><div class="art-note">✦ a little time well spent</div></div>
+      </section>
+
+      <section class="planner panel">
+        <div class="section-kicker">01 <span>BUILD YOUR WATCH PLAN</span></div>
+        <div class="planner-row">
+          <div class="time-field"><label for="minutes">I have about</label><div class="minutes-input"><input id="minutes" type="number" min="1" max="600" value="15"><span>minutes</span></div></div>
+          <div class="quick-times"><button data-minutes="10">10 min</button><button class="selected" data-minutes="15">15 min</button><button data-minutes="20">20 min</button><button data-minutes="30">30 min</button></div>
+          <div class="mood-field"><label for="mood">I'm in the mood to</label><select id="mood"><option>Any</option><option>Learn</option><option>Chill</option><option>Music</option></select></div>
+          <button id="buildPlan" class="primary-btn"><span>Find my videos</span><span class="btn-arrow">↗</span></button>
+        </div>
+        <div class="planner-foot"><span><span class="tiny-spark">✦</span> Fits your free time, not the other way around.</span><span class="privacy-note">Your list stays on this demo server.</span></div>
+      </section>
+
+      <section class="results-section" id="resultsSection">
+        <div class="results-heading"><div><div class="section-kicker">02 <span>YOUR MINI WATCHLIST</span></div><h2 id="resultTitle">A good 15 minutes starts here.</h2><p id="resultSubtitle">A hand-picked combo from your saved videos.</p></div><button id="shuffleBtn" class="secondary-btn">⤨ <span>Shuffle combo</span></button></div>
+        <div id="planSummary" class="plan-summary"><div class="summary-icon">▶</div><div><strong id="summaryTime">0 min</strong><span>planned watch time</span></div><div class="summary-divider"></div><div><strong id="summaryCount">0 videos</strong><span>in this little plan</span></div><div class="summary-spacer"></div><span class="fit-pill">● Fits your gap</span></div>
+        <div id="planList" class="video-grid"></div>
+        <div id="emptyPlan" class="empty-state hidden"><div class="empty-illustration">◷</div><h3>No videos fit this gap just yet</h3><p>Try a little more time, or switch your mood to “Any”.</p><button class="secondary-btn" id="tryAgain">Adjust my plan ↗</button></div>
+      </section>
+
+      <section class="library-section">
+        <div class="library-heading"><div><div class="section-kicker">03 <span id="libraryKicker">THE BACKLOG, MADE BETTER</span></div><h2 id="libraryTitle">Your saved videos</h2></div><button class="secondary-btn" id="addVideoBtn">＋ Add a video</button></div>
+        <div class="library-tools"><div class="search-box"><span>⌕</span><input id="search" placeholder="Search your list..." /></div><div class="filter-pills"><button class="filter-pill active" data-filter="All">All videos</button><button class="filter-pill" data-filter="Learn">Learn</button><button class="filter-pill" data-filter="Chill">Chill</button><button class="filter-pill" data-filter="Music">Music</button></div><span class="list-count" id="listCount">20 videos</span></div>
+        <div id="libraryList" class="library-list"></div>
+      </section>
+      <footer><span class="footer-logo">timebox<span>.</span></span><span>A tiny nudge to watch what you meant to watch.</span><span>Prototype · Not affiliated with YouTube</span></footer>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="closeModal" class="modal-close" aria-label="Close">×</button>
+      <div class="section-kicker">ADD TO YOUR QUEUE</div><h2 id="modalTitle">Save a video for later.</h2><p class="modal-intro">Paste a YouTube link to auto-fill details with an API key, or enter them manually.</p>
+      <form id="addForm">
+        <label>YouTube URL <div class="url-row"><input id="videoUrl" type="url" placeholder="https://youtube.com/watch?v=..." /><button type="button" id="lookupBtn" class="secondary-btn">Look up</button></div></label>
+        <div id="lookupMessage" class="form-message"></div>
+        <label>Video title<input id="videoTitle" required placeholder="What do you want to watch?" /></label>
+        <div class="form-two"><label>Channel<input id="videoChannel" placeholder="Channel name" /></label><label>Duration (minutes)<input id="videoDuration" type="number" required min="0.02" max="1440" step="0.1" placeholder="12.5" /></label></div>
+        <label>Mood<select id="videoMood"><option>Learn</option><option>Chill</option><option>Music</option></select></label>
+        <div class="modal-actions"><button type="button" id="cancelModal" class="secondary-btn">Cancel</button><button class="primary-btn" type="submit">Save video <span class="btn-arrow">↗</span></button></div>
+      </form>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
